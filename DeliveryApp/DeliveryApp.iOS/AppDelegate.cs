@@ -1,4 +1,5 @@
 ﻿using Foundation;
+using Microsoft.WindowsAzure.MobileServices;
 using UIKit;
 
 namespace DeliveryApp.iOS
@@ -9,6 +10,9 @@ namespace DeliveryApp.iOS
     public class AppDelegate : UIApplicationDelegate
     {
         // class-level declarations
+        //TODO [iOS] change with correct Azure Mobile App Service URL
+        public static MobileServiceClient MobileService = new MobileServiceClient("Mobile App Service URL");
+
 
         public override UIWindow Window
         {

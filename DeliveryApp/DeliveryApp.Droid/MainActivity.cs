@@ -1,15 +1,19 @@
 ﻿using Android.App;
+using Android.Content;
 using Android.OS;
 using Android.Support.V7.App;
 using Android.Widget;
+using Microsoft.WindowsAzure.MobileServices;
 using System;
-using Android.Content;
 
 namespace DeliveryApp.Droid
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
     public class MainActivity : AppCompatActivity
     {
+        //TODO [Droid] change with correct Azure Mobile App Service URL
+        public static MobileServiceClient MobileService = new MobileServiceClient("Mobile App Service URL");
+
         private EditText EmailEditText, PasswordEditText;
         private Button SignInButton, RegisterButton;
 

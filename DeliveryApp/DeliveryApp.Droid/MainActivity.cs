@@ -5,6 +5,7 @@ using Android.Support.V7.App;
 using Android.Widget;
 using Microsoft.WindowsAzure.MobileServices;
 using System;
+using System.Linq;
 
 namespace DeliveryApp.Droid
 {
@@ -34,8 +35,28 @@ namespace DeliveryApp.Droid
 
         }
 
-        private void SignInButton_Clicked(object sender, EventArgs e)
+        private async void SignInButton_Clicked(object sender, EventArgs e)
         {
+            var email = EmailEditText.Text;
+            var password = PasswordEditText.Text;
+
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            {
+                Toast.MakeText(this,"Email and password cannot be empty",ToastLength.Long).Show();
+            }
+            else
+            {
+                var user = (await MobileService.GetTable<User>().Where(u => u.Email == email).ToListAsync()).FirstOrDefault();
+                if (user.Password == password)
+                {
+                    Toast.MakeText(this, "Login successful", ToastLength.Long).Show();
+                }
+                else
+                {
+                    Toast.MakeText(this, "Incorrect password", ToastLength.Long).Show();
+                }
+            }
+
 
         }
         private void RegisterButton_Clicked(object sender, EventArgs e)

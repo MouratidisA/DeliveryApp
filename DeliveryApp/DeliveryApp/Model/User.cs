@@ -36,7 +36,9 @@ namespace DeliveryApp.Model
             if (!string.IsNullOrEmpty(password) && (password == confirmPassword))
             {
                 var user = new User() { Email = email, Password = password };
-                await AzureHelper.MobileService.GetTable<User>().InsertAsync(user);
+
+                await AzureHelper.Insert(user);
+
                 result = true;
             }
 

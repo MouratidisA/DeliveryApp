@@ -6,17 +6,17 @@ using Android.Widget;
 using Microsoft.WindowsAzure.MobileServices;
 using System;
 using System.Linq;
+using DeliveryApp.Model;
 
 namespace DeliveryApp.Droid
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
     public class MainActivity : AppCompatActivity
     {
-        //TODO [Droid] change with correct Azure Mobile App Service URL
-        public static MobileServiceClient MobileService = new MobileServiceClient("Mobile App Service URL");
+ 
 
-        private EditText EmailEditText, PasswordEditText;
-        private Button SignInButton, RegisterButton;
+        private EditText _emailEditText, _passwordEditText;
+        private Button _signInButton, _registerButton;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -24,30 +24,31 @@ namespace DeliveryApp.Droid
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.activity_main);
 
-            EmailEditText = FindViewById<EditText>(Resource.Id.EmailEditText);
-            PasswordEditText = FindViewById<EditText>(Resource.Id.PasswordEditText1);
+            _emailEditText = FindViewById<EditText>(Resource.Id.EmailEditText);
+            _passwordEditText = FindViewById<EditText>(Resource.Id.PasswordEditText1);
 
-            SignInButton = FindViewById<Button>(Resource.Id.SignInButton);
-            RegisterButton = FindViewById<Button>(Resource.Id.RegisterButton);
+            _signInButton = FindViewById<Button>(Resource.Id.SignInButton);
+            _registerButton = FindViewById<Button>(Resource.Id.RegisterButton);
 
-            SignInButton.Click += SignInButton_Clicked;
-            RegisterButton.Click += RegisterButton_Clicked;
+            _signInButton.Click += SignInButton_Clicked;
+            _registerButton.Click += RegisterButton_Clicked;
 
         }
 
         private async void SignInButton_Clicked(object sender, EventArgs e)
         {
-            var email = EmailEditText.Text;
-            var password = PasswordEditText.Text;
+            var email = _emailEditText.Text;
+            var password = _passwordEditText.Text;
 
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
-                Toast.MakeText(this,"Email and password cannot be empty",ToastLength.Long).Show();
+                Toast.MakeText(this, "Email and password cannot be empty", ToastLength.Long).Show();
             }
             else
             {
-                var user = (await MobileService.GetTable<User>().Where(u => u.Email == email).ToListAsync()).FirstOrDefault();
-                if (user.Password == password)
+                var result = await User.Login(email, password);
+
+                if (result)
                 {
                     Toast.MakeText(this, "Login successful", ToastLength.Long).Show();
                 }
@@ -57,12 +58,11 @@ namespace DeliveryApp.Droid
                 }
             }
 
-
         }
         private void RegisterButton_Clicked(object sender, EventArgs e)
         {
             var intent = new Intent(this, typeof(RegisterActivity));
-            intent.PutExtra("email",EmailEditText.Text);
+            intent.PutExtra("email",_emailEditText.Text);
             StartActivity(intent);
         }
     }

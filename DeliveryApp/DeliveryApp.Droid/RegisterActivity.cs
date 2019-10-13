@@ -2,6 +2,7 @@
 using Android.OS;
 using Android.Widget;
 using System;
+using DeliveryApp.Model;
 
 namespace DeliveryApp.Droid
 {
@@ -36,9 +37,10 @@ namespace DeliveryApp.Droid
             {
                 if (_passwordEditText.Text == _confirmPasswordEditText.Text)
                 {
-                    var user = new User() { Email = _emailEditText.Text, Password = _passwordEditText.Text };
-                    await MainActivity.MobileService.GetTable<User>().InsertAsync(user);
-                    Toast.MakeText(this, "Success", ToastLength.Long).Show();
+                    if(await User.Register(_emailEditText.Text,_passwordEditText.Text,_confirmPasswordEditText.Text))
+                        Toast.MakeText(this, "Success", ToastLength.Long).Show();
+                    else
+                        Toast.MakeText(this, "Try again", ToastLength.Long).Show();
                 }
                 else
                     Toast.MakeText(this, "Passwords don't match", ToastLength.Long).Show();

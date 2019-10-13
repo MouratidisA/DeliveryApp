@@ -25,6 +25,9 @@ namespace DeliveryApp.Droid
 
             RegisterUserButton.Click += RegisterUserButton_Clicked;
 
+            string email = Intent.GetStringExtra("email");
+            EmailEditText.Text = email;
+
         }
 
         private void RegisterUserButton_Clicked(object sender, EventArgs e)

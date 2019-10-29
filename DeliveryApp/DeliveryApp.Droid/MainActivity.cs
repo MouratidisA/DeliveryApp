@@ -3,15 +3,12 @@ using Android.Content;
 using Android.OS;
 using Android.Support.V7.App;
 using Android.Widget;
-using Microsoft.WindowsAzure.MobileServices;
 using System;
-using System.Linq;
-using DeliveryApp.Model;
 
 namespace DeliveryApp.Droid
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
-    public class MainActivity : AppCompatActivity
+    public class MainActivity : Android.Support.V7.App.AppCompatActivity
     {
  
 

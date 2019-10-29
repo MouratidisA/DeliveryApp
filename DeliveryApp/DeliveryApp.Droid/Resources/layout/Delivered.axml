@@ -13,6 +13,6 @@
 		android:layout_height="wrap_content"
 		android:minWidth="25px"
 		android:minHeight="25px"
-		android:id="@+id/DelieveredTextView" />
+		android:id="@+id/delieveredTextView" />
 
 </LinearLayout>

@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
+﻿using Android.App;
 using Android.OS;
-using Android.Runtime;
-using Android.Support.Design.Widget;
+using Android.Support.Design.Widget;    
 using Android.Support.V4.App;
-using Android.Views;
-using Android.Widget;
+using Android.Support.V7.Widget;
 
 namespace DeliveryApp.Droid
 {
@@ -18,6 +10,7 @@ namespace DeliveryApp.Droid
     public class TabsActivity : FragmentActivity
     {
         private TabLayout _tabLayout;
+        private Toolbar _tabsToolbar;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -26,10 +19,23 @@ namespace DeliveryApp.Droid
             // Create your application here
             SetContentView(Resource.Layout.Tabs);
 
+            _tabsToolbar = FindViewById<Toolbar>(Resource.Id.tabsToolbar);
+
             _tabLayout = FindViewById<TabLayout>(Resource.Id.mainTabLayout);
             _tabLayout.TabSelected += TabLayout_TabSelected;
 
+            _tabsToolbar.InflateMenu(Resource.Menu.tabsMenu);
+            _tabsToolbar.MenuItemClick += TabsToolbar_MenuItemClick;
+
             FragmentNavigate(new DeliveriesFragment());
+        }
+
+        private void TabsToolbar_MenuItemClick(object sender, Toolbar.MenuItemClickEventArgs e)
+        {
+            if (e.Item.ItemId == Resource.Id.action_add)
+            {
+                StartActivity(typeof(NewDeliveryActivity));
+            }
         }
 
         private void TabLayout_TabSelected(object sender, TabLayout.TabSelectedEventArgs e)

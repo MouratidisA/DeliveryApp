@@ -46,11 +46,14 @@ namespace DeliveryApp.Droid
             }
             else
             {
-                var result = await User.Login(email, password);
+                //var result = await User.Login(email, password); TODO uncomment when Azure Service is available 
+                var result = true;
 
                 if (result)
                 {
                     Toast.MakeText(this, "Login successful", ToastLength.Long).Show();
+                    Intent intent= new Intent(this,typeof(TabsActivity));
+                    StartActivity(intent);
                 }
                 else
                 {

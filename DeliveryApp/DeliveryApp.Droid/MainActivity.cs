@@ -54,6 +54,7 @@ namespace DeliveryApp.Droid
                     Toast.MakeText(this, "Login successful", ToastLength.Long).Show();
                     Intent intent= new Intent(this,typeof(TabsActivity));
                     StartActivity(intent);
+                    Finish();
                 }
                 else
                 {

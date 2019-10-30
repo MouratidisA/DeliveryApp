@@ -1,5 +1,6 @@
 ﻿using System;
 using Android.App;
+using Android.Gms.Maps;
 using Android.OS;
 using Android.Widget;
 using DeliveryApp.Model;
@@ -7,10 +8,11 @@ using DeliveryApp.Model;
 namespace DeliveryApp.Droid
 {
     [Activity(Label = "NewDeliveryActivity")]
-    public class NewDeliveryActivity : Activity
+    public class NewDeliveryActivity : Activity, IOnMapReadyCallback
     {
         private Button _saveButton;
         private EditText _packageNameEditText;
+        private MapFragment _mapFragment;
 
 
 
@@ -23,6 +25,9 @@ namespace DeliveryApp.Droid
 
             _saveButton = FindViewById<Button>(Resource.Id.saveButton);
             _packageNameEditText = FindViewById<EditText>(Resource.Id.packageEditText);
+            _mapFragment = FragmentManager.FindFragmentById<MapFragment>(Resource.Id.mapFragment);
+            _mapFragment.GetMapAsync(this);
+
 
             _saveButton.Click += SaveButton_Click;
         }
@@ -36,6 +41,11 @@ namespace DeliveryApp.Droid
             };
 
             await Delivery.InsertDelivery(delivery);
+        }
+
+        public void OnMapReady(GoogleMap googleMap)
+        {
+
         }
     }
 }

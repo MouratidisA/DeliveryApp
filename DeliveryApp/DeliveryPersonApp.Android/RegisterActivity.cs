@@ -33,7 +33,7 @@ namespace DeliveryPersonApp.Android
             {
                 if (_passwordEditText.Text == _confirmPasswordEditText.Text)
                 {
-                    if (await User.Register(_emailEditText.Text, _passwordEditText.Text, _confirmPasswordEditText.Text))
+                    if (await DeliveryPerson.Register(_emailEditText.Text, _passwordEditText.Text, _confirmPasswordEditText.Text))
                         Toast.MakeText(this, "Success", ToastLength.Long).Show();
                     else
                         Toast.MakeText(this, "Try again", ToastLength.Long).Show();

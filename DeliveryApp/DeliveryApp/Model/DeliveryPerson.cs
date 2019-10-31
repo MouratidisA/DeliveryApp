@@ -10,22 +10,22 @@ namespace DeliveryApp.Model
         public string Password { get; set; }
 
 
-        public static async Task<bool> Login(string email, string password)
+        public static async Task<string> Login(string email, string password)
         {
-            bool result = false;
-
+            string userId = string.Empty;
+            
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
-                return result;
+                userId = string.Empty;
             }
 
             var deliveryPerson = (await AzureHelper.MobileService.GetTable<DeliveryPerson>().Where(u => u.Email == email).ToListAsync()).FirstOrDefault();
             if (deliveryPerson?.Password == password)
             {
-                result = true;
+                userId = deliveryPerson.Id;
             }
 
-            return result;
+            return userId;
         }
 
 

@@ -10,6 +10,7 @@ namespace DeliveryPersonApp.Android
     public class TabsActivity : global::Android.Support.V4.App.FragmentActivity
     {
         private TabLayout _tabLayout;
+        public string UserId;
      
 
 
@@ -19,6 +20,8 @@ namespace DeliveryPersonApp.Android
 
             // Create your application here
             SetContentView(Resource.Layout.Tabs);
+
+            UserId = Intent.GetStringExtra("userId");
 
             
             _tabLayout = FindViewById<TabLayout>(Resource.Id.mainTabLayout);

@@ -5,6 +5,13 @@
     android:layout_height="match_parent">
 
 
+	<Button
+		android:text="Pick Up"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/pickUpButton" />
+
+
 	<fragment
 		android:id="@+id/pickUpMapFragment"
 		class="com.google.android.gms.maps.MapFragment"

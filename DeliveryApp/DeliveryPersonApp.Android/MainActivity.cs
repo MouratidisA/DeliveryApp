@@ -3,6 +3,8 @@ using Android.OS;
 using Android.Support.V7.App;
 using Android.Widget;
 using System;
+using Android.Content;
+using DeliveryApp.Model;
 
 namespace DeliveryPersonApp.Android
 {
@@ -33,8 +35,9 @@ namespace DeliveryPersonApp.Android
             StartActivity(typeof(RegisterActivity));            
         }
 
-        private void SignInButton_Click(object sender, EventArgs e)
+        private async void SignInButton_Click(object sender, EventArgs e)
         {
+
             var email = _emailEditText.Text;
             var password = _passwordEditText.Text;
 
@@ -44,13 +47,14 @@ namespace DeliveryPersonApp.Android
             }
             else
             {
-                //var result = await User.Login(email, password); TODO uncomment when Azure Service is available 
-                var result = true;
-
-                if (result)
+                var userId = await DeliveryPerson.Login(email, password);
+                
+                if (!string.IsNullOrEmpty(userId))
                 {
                     Toast.MakeText(this, "Login successful", ToastLength.Long).Show();
-                    StartActivity(typeof(TabsActivity));
+                    Intent intent = new Intent(this,typeof(TabsActivity));
+                    intent.PutExtra("userId",userId);                    
+                    StartActivity(intent);
                     Finish();
                 }
                 else

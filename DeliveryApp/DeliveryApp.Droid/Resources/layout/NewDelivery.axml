@@ -23,11 +23,25 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:id="@+id/locatePackageOriginTextView" />
-
 	<fragment
 		android:id="@+id/mapFragment"
-		class="com.google.gms.maps.MapFragment"
+		class="com.google.android.gms.maps.MapFragment"
+		android:layout_width="match_parent"
+		android:layout_height="200dp"/>
+
+
+		
+	<TextView
+		android:text="Locate Package Destination"
+		android:textAppearance="?android:attr/textAppearanceSmall"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-	/>
+		android:id="@+id/locatePackageDestinationTextView" />
+	<fragment
+		android:id="@+id/destinationMapFragment"
+		class="com.google.android.gms.maps.MapFragment"
+		android:layout_width="match_parent"
+		android:layout_height="200dp"/>
+
+
 </LinearLayout>

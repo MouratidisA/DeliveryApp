@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DeliveryApp.Model
@@ -54,6 +55,37 @@ namespace DeliveryApp.Model
             }
         }
 
+        public static async Task<bool> MarkAsPickedUp(string deliveryId,string deliveryPersonId)
+        {
+            try
+            {
+                var delivery = (await AzureHelper.MobileService.GetTable<Delivery>().Where(d=> d.Id == deliveryId).ToListAsync()).FirstOrDefault();
+                delivery.Status = 1;
+                delivery.DeliveryPersonId = deliveryPersonId;
+                await AzureHelper.MobileService.GetTable<Delivery>().UpdateAsync(delivery);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public static async Task<bool> MarkAsDelivered(string deliveryId)
+        {
+            try
+            {
+                var delivery = (await AzureHelper.MobileService.GetTable<Delivery>().Where(d => d.Id == deliveryId).ToListAsync()).FirstOrDefault();
+                delivery.Status = 2;                
+                await AzureHelper.MobileService.GetTable<Delivery>().UpdateAsync(delivery);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
         public static async Task<List<Delivery>> GetDeliveries()
         {
             List<Delivery> deliveriesList = new List<Delivery>();
@@ -65,6 +97,13 @@ namespace DeliveryApp.Model
         {
             List<Delivery> deliveredList = new List<Delivery>();
             deliveredList = await AzureHelper.MobileService.GetTable<Delivery>().Where(d => d.Status == 2).ToListAsync();
+            return deliveredList;
+        }
+
+        public static async Task<List<Delivery>> GetDelivered(string id)
+        {
+            List<Delivery> deliveredList = new List<Delivery>();
+            deliveredList = await AzureHelper.MobileService.GetTable<Delivery>().Where(d => d.Status == 2 && d.DeliveryPersonId == id).ToListAsync();
             return deliveredList;
         }
 

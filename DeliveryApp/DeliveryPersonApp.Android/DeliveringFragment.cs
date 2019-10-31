@@ -1,10 +1,9 @@
-﻿using Android.App;
-using Android.OS;
+﻿using Android.OS;
 using Android.Views;
 
 namespace DeliveryPersonApp.Android
 {
-    public class DeliveringFragment : ListFragment
+    public class DeliveringFragment : global::Android.Support.V4.App.ListFragment
     {
         public override void OnCreate(Bundle savedInstanceState)
         {

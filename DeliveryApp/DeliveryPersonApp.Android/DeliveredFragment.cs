@@ -4,7 +4,7 @@ using Android.Views;
 
 namespace DeliveryPersonApp.Android
 {
-    public class DeliveredFragment : ListFragment
+    public class DeliveredFragment : global::Android.Support.V4.App.ListFragment
     {
         public override void OnCreate(Bundle savedInstanceState)
         {

@@ -7,6 +7,7 @@ using Android.OS;
 using Android.Widget;
 using DeliveryApp.Model;
 using System;
+using ILocationListener = Android.Gms.Location.ILocationListener;
 
 namespace DeliveryApp.Droid
 {
@@ -44,7 +45,7 @@ namespace DeliveryApp.Droid
         private async void SaveButton_Click(object sender, EventArgs e)
         {
             //TODO implement location retrieval from _mapFragment and _destinationFragment 
-            //var originLocation = _mapFragment.Map.CameraPosition.Target;            
+            //var originLocation = _mapFragment.Map.CameraPosition.Target;
             //var destinationLocation = _destinationMapFragment.Map.CameraPosition.Target;
 
             //TODO replace current location with fragments' location
@@ -73,8 +74,7 @@ namespace DeliveryApp.Droid
             marker.SetPosition(new LatLng(_latitude, _longitude));
             marker.SetTitle("Your Location");
             googleMap.AddMarker(marker);
-
-            googleMap.MoveCamera(CameraUpdateFactory.NewLatLngZoom(new LatLng(_latitude, _longitude),10));
+            googleMap.MoveCamera(CameraUpdateFactory.NewLatLngZoom(new LatLng(_latitude, _longitude), 10));
 
         }
 
@@ -84,21 +84,6 @@ namespace DeliveryApp.Droid
             _longitude = location.Longitude;
             _mapFragment.GetMapAsync(this);
             _destinationMapFragment.GetMapAsync(this);
-        }
-
-        public void OnProviderDisabled(string provider)
-        {
-
-        }
-
-        public void OnProviderEnabled(string provider)
-        {
-
-        }
-
-        public void OnStatusChanged(string provider, Availability status, Bundle extras)
-        {
-
         }
 
         protected override void OnPause()

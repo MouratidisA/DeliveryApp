@@ -12,7 +12,8 @@ using System;
 
 namespace DeliveryPersonApp.Android
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true,Name = "DeliveryPersonApp.Android.DeliveryPersonApp.Android.MainActivity",Exported = true)]
+    [MetaData("android.app.shortcuts",Resource = "@xml/shortcuts")]
     public class MainActivity : AppCompatActivity
     {
         private EditText _emailEditText, _passwordEditText;
@@ -42,6 +43,16 @@ namespace DeliveryPersonApp.Android
 
             _signinButton.Click += SignInButton_Click;
             _registerButton.Click += RegisterButton_Click;
+
+
+            //Register from Shortcut options
+            if (!string.IsNullOrEmpty(Intent?.Data?.LastPathSegment))
+            {
+                if (Intent.Data.LastPathSegment == "register")
+                {
+                    StartActivity(typeof(RegisterActivity));
+                }
+            }
         }
 
         private void RegisterButton_Click(object sender, EventArgs e)

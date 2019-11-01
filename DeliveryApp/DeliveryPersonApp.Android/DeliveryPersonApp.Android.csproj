@@ -56,6 +56,7 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthenticationCallback.cs" />
     <Compile Include="DeliverActivity.cs" />
     <Compile Include="DeliveredFragment.cs" />
     <Compile Include="DeliveringFragment.cs" />

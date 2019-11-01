@@ -7,7 +7,7 @@ using Android.OS;
 using Android.Widget;
 using DeliveryApp.Model;
 using System;
-using ILocationListener = Android.Gms.Location.ILocationListener;
+
 
 namespace DeliveryApp.Droid
 {
@@ -84,6 +84,21 @@ namespace DeliveryApp.Droid
             _longitude = location.Longitude;
             _mapFragment.GetMapAsync(this);
             _destinationMapFragment.GetMapAsync(this);
+        }
+
+        public void OnProviderDisabled(string provider)
+        {
+         
+        }
+
+        public void OnProviderEnabled(string provider)
+        {
+         
+        }
+
+        public void OnStatusChanged(string provider, Availability status, Bundle extras)
+        {
+         
         }
 
         protected override void OnPause()
